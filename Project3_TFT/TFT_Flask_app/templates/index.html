@@ -1,0 +1,3706 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>TFT Win/Lose</title>
+    <style>
+            body {
+                background-image: url(https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt126ee46ff174bc38/5e4c61519209d7312d445308/TFT_Teaser_Banner.jpg);
+                background-repeat:no-repeat;
+                background-size:1920px 1080px;
+                color:white;
+                font-family:Helvetica;
+                margin-top:-15px;
+            }
+            .h2 {
+                color:white;
+                background-color: #0cd4a8;
+                height:30px;
+                width:450px;
+                text-align:center;
+                font-family:Helvetica;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .row {
+                height:100%;
+                width:100%;
+                display:flex;
+            }
+            .logo {
+                height:25%;
+                width:25%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .div1 { 
+                width: 50px; 
+                height: 50px; 
+                padding: 10px;
+                margin: 20px; 
+                border: 1px solid black; 
+                background-color: #396d68;
+                display: inline-block;
+            }
+            .div2 { 
+                width: 1400px; 
+                height: 160px; 
+                padding: 10px; 
+                border: 1px solid black; 
+                background-color: #F5F5F5;
+            }
+            .slidecontainer {
+                width: 100%; /* Width of the outside container */
+            }
+            .slider {
+                -webkit-appearance: none;  /* Override default CSS styles */
+                appearance: none;
+                width: 100%; /* Full-width */
+                height: 25px; /* Specified height */
+                background: #d3d3d3; /* Grey background */
+                outline: none; /* Remove outline */
+                opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+                -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+                transition: opacity .2s;
+            }
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none; /* Override default look */
+                appearance: none;
+                width: 25px; /* Set a specific slider handle width */
+                height: 25px; /* Slider handle height */
+                background: #0cd4a8; /* Green background */
+                cursor: pointer; /* Cursor on hover */
+            }
+            .headnote {
+            top: 35px;
+            text-align:left;
+            position:relative;
+            }
+        </style>
+  </head>
+  <body>
+          <div class="headnote">Max items: 3 | Max stars: 3<br>
+    *star must be at least 1 to consider <i>in play</i></div>
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Teamfight_Tactics_logo.svg/800px-Teamfight_Tactics_logo.svg.png">
+    <h2 class="h2">Win/Lose Predictor</h2>
+    <form action="/predict_tft/" method="post">
+    <p>
+      GameDuration: <input type="text" name="gameDuration" value="2400"> seconds
+    </p>
+    <div class="slidecontainer">
+      <input type="range" min="1" max="9" value="1" class="slider" id="myRange" name="level">
+      <p>Level: <span id="demo"></span></p>
+    </div>
+    <div class="row">
+    <div class="div1" ondrop="dragDrop1(event)" ondragover="allowDrop(event)">
+        <span id="champ1"></span>
+    </div>
+        <p>Items: <input id="champ1_items" type="text" value="0"><br>
+           Stars: <input id="champ1_star" type="text" value="0"></p>
+    <div class="div1" ondrop="dragDrop2(event)" ondragover="allowDrop(event)">
+        <span id="champ2"></span>
+    </div>
+        <p>Items: <input id="champ2_items" type="text" value="0"><br>
+        Stars: <input id="champ2_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop3(event)" ondragover="allowDrop(event)">
+        <span id="champ3"></span>
+    </div>
+        <p>Items: <input id="champ3_items" type="text" value="0"><br>
+        Stars: <input id="champ3_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop4(event)" ondragover="allowDrop(event)">
+        <span id="champ4"></span>
+    </div>
+        <p>Items: <input id="champ4_items" type="text" value="0"><br>
+        Stars: <input id="champ4_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop5(event)" ondragover="allowDrop(event)">
+        <span id="champ5"></span>
+    </div>
+        <p>Items: <input id="champ5_items" type="text" value="0"><br>
+        Stars: <input id="champ5_star" type="text" value="0"></p>
+    </div>
+    <div class="row">
+    <div class="div1" ondrop="dragDrop6(event)" ondragover="allowDrop(event)">
+        <span id="champ6"></span>
+    </div>
+        <p>Items: <input id="champ6_items" type="text" value="0"><br>
+        Stars: <input id="champ6_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop7(event)" ondragover="allowDrop(event)">
+        <span id="champ7"></span>
+    </div>
+        <p>Items: <input id="champ7_items" type="text" value="0"><br>
+        Stars: <input id="champ7_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop8(event)" ondragover="allowDrop(event)">
+        <span id="champ8"></span>
+    </div>
+        <p>Items: <input id="champ8_items" type="text" value="0"><br>
+        Stars: <input id="champ8_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop9(event)" ondragover="allowDrop(event)">
+        <span id="champ9"></span>
+    </div>
+        <p>Items: <input id="champ9_items" type="text" value="0"><br>
+        Stars: <input id="champ9_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop10(event)" ondragover="allowDrop(event)">
+        <span id="champ10"></span>
+    </div>
+        <p>Items: <input id="champ10_items" type="text" value="0"><br>
+        Stars: <input id="champ10_star" type="text" value="0"></p>
+    </div>
+    <div class="row">
+    <div class="div1" ondrop="dragDrop11(event)" ondragover="allowDrop(event)">
+        <span id="champ11"></span>
+    </div>
+        <p>Items:<br><input id="champ11_items" type="text" value="0"><br>
+        Stars:<br><input id="champ11_star" type="text" value="0"></p>
+    <br>
+    <div class="div1" ondrop="dragDrop12(event)" ondragover="allowDrop(event)">
+        <span id="champ12"></span>
+    </div>
+        <p>Items:<br><input id="champ12_items" type="text" value="0"><br>
+        Stars:<br><input id="champ12_star" type="text" value="0"></p>
+    </div>
+        <input type="hidden" name="Ahri_items" value="0">
+        <input type="hidden" name="Ahri_star" value="0">
+        
+        <input type="hidden" name="Annie_items" value="0">
+        <input type="hidden" name="Annie_star" value="0">
+        
+        <input type="hidden" name="Ashe_items" value="0">
+        <input type="hidden" name="Ashe_star" value="0">
+        
+        <input type="hidden" name="AurelionSol_items" value="0">
+        <input type="hidden" name="AurelionSol_star" value="0">
+        
+        <input type="hidden" name="Blitzcrank_items" value="0">
+        <input type="hidden" name="Blitzcrank_star" value="0">
+        
+        <input type="hidden" name="Caitlyn_items" value="0">
+        <input type="hidden" name="Caitlyn_star" value="0">
+        
+        <input type="hidden" name="ChoGath_items" value="0">
+        <input type="hidden" name="ChoGath_star" value="0">
+        
+        <input type="hidden" name="Darius_items" value="0">
+        <input type="hidden" name="Darius_star" value="0">
+        
+        <input type="hidden" name="Ekko_items" value="0">
+        <input type="hidden" name="Ekko_star" value="0">
+        
+        <input type="hidden" name="Ezreal_items" value="0">
+        <input type="hidden" name="Ezreal_star" value="0">
+        
+        <input type="hidden" name="Fiora_items" value="0">
+        <input type="hidden" name="Fiora_star" value="0">
+    
+        <input type="hidden" name="Fizz_items" value="0">
+        <input type="hidden" name="Fizz_star" value="0">
+    
+        <input type="hidden" name="Gangplank_items" value="0">
+        <input type="hidden" name="Gangplank_star" value="0">
+        
+        <input type="hidden" name="Graves_items" value="0">
+        <input type="hidden" name="Graves_star" value="0">
+        
+        <input type="hidden" name="Irelia_items" value="0">
+        <input type="hidden" name="Irelia_star" value="0">
+        
+        <input type="hidden" name="JarvanIV_items" value="0">
+        <input type="hidden" name="JarvanIV_star" value="0">
+        
+        <input type="hidden" name="Jayce_items" value="0">
+        <input type="hidden" name="Jayce_star" value="0">
+
+        <input type="hidden" name="Jhin_items" value="0">
+        <input type="hidden" name="Jhin_star" value="0">
+
+        <input type="hidden" name="Jinx_items" value="0">
+        <input type="hidden" name="Jinx_star" value="0">
+
+        <input type="hidden" name="KaiSa_items" value="0">
+        <input type="hidden" name="KaiSa_star" value="0">
+
+        <input type="hidden" name="Karma_items" value="0">
+        <input type="hidden" name="Karma_star" value="0">
+        
+        <input type="hidden" name="Kassadin_items" value="0">
+        <input type="hidden" name="Kassadin_star" value="0">
+
+        <input type="hidden" name="Kayle_items" value="0">
+        <input type="hidden" name="Kayle_star" value="0">
+
+        <input type="hidden" name="KhaZix_items" value="0">
+        <input type="hidden" name="KhaZix_star" value="0">
+
+        <input type="hidden" name="Leona_items" value="0">
+        <input type="hidden" name="Leona_star" value="0">
+
+        <input type="hidden" name="Lucian_items" value="0">
+        <input type="hidden" name="Lucian_star" value="0">
+
+        <input type="hidden" name="Lulu_items" value="0">
+        <input type="hidden" name="Lulu_star" value="0">
+
+        <input type="hidden" name="Lux_items" value="0">
+        <input type="hidden" name="Lux_star" value="0">
+
+        <input type="hidden" name="Malphite_items" value="0">
+        <input type="hidden" name="Malphite_star" value="0">
+
+        <input type="hidden" name="MasterYi_items" value="0">
+        <input type="hidden" name="MasterYi_star" value="0">
+
+        <input type="hidden" name="MissFortune_items" value="0">
+        <input type="hidden" name="MissFortune_star" value="0">
+
+        <input type="hidden" name="Mordekaiser_items" value="0">
+        <input type="hidden" name="Mordekaiser_star" value="0">
+
+        <input type="hidden" name="Neeko_items" value="0">
+        <input type="hidden" name="Neeko_star" value="0">
+
+        <input type="hidden" name="Poppy_items" value="0">
+        <input type="hidden" name="Poppy_star" value="0">
+
+        <input type="hidden" name="Rakan_items" value="0">
+        <input type="hidden" name="Rakan_star" value="0">
+
+        <input type="hidden" name="Rumble_items" value="0">
+        <input type="hidden" name="Rumble_star" value="0">
+
+        <input type="hidden" name="Shaco_items" value="0">
+        <input type="hidden" name="Shaco_star" value="0">
+
+        <input type="hidden" name="Shen_items" value="0">
+        <input type="hidden" name="Shen_star" value="0">
+
+        <input type="hidden" name="Sona_items" value="0">
+        <input type="hidden" name="Sona_star" value="0">
+        
+        <input type="hidden" name="Soraka_items" value="0">
+        <input type="hidden" name="Soraka_star" value="0">
+
+        <input type="hidden" name="Syndra_items" value="0">
+        <input type="hidden" name="Syndra_star" value="0">
+
+        <input type="hidden" name="Thresh_items" value="0">
+        <input type="hidden" name="Thresh_star" value="0">
+
+        <input type="hidden" name="TwistedFate_items" value="0">
+        <input type="hidden" name="TwistedFate_star" value="0">
+
+        <input type="hidden" name="VelKoz_items" value="0">
+        <input type="hidden" name="VelKoz_star" value="0">
+
+        <input type="hidden" name="Vi_items" value="0">
+        <input type="hidden" name="Vi_star" value="0">
+
+        <input type="hidden" name="WuKong_items" value="0">
+        <input type="hidden" name="WuKong_star" value="0">
+
+        <input type="hidden" name="Xayah_items" value="0">
+        <input type="hidden" name="Xayah_star" value="0">
+
+        <input type="hidden" name="Xerath_items" value="0">
+        <input type="hidden" name="Xerath_star" value="0">
+
+        <input type="hidden" name="XinZhao_items" value="0">
+        <input type="hidden" name="XinZhao_star" value="0">
+
+        <input type="hidden" name="Yasuo_items" value="0">
+        <input type="hidden" name="Yasuo_star" value="0">
+
+        <input type="hidden" name="Ziggs_items" value="0">
+        <input type="hidden" name="Ziggs_star" value="0">
+
+        <input type="hidden" name="Zoe_items" value="0">
+        <input type="hidden" name="Zoe_star" value="0">
+    <br>
+    <div class="div2" ondrop="dragDrop(event)" ondragover="allowDrop(event)">
+    <img id="ahri" title="Ahri" src="https://cdn.lolchess.gg/images/tft/champions/set3/ahri.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="annie" title="Annie" src="https://cdn.lolchess.gg/images/tft/champions/set3/annie.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    
+    <img id="ashe" title="Ashe" src="https://cdn.lolchess.gg/images/tft/champions/set3/ashe.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">    
+    <img id="aurelionsol" title="AurelionSol" src="https://cdn.lolchess.gg/images/tft/champions/set3/aurelionsol.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="blitzcrank" title="Blitzcrank" src="https://cdn.lolchess.gg/images/tft/champions/set3/blitzcrank.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">    
+    <img id="caitlyn" title="Caitlyn" src="https://cdn.lolchess.gg/images/tft/champions/set3/caitlyn.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="chogath" title="ChoGath" src="https://ddragon.leagueoflegends.com/cdn/10.15.1/img/champion/Chogath.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">    
+    <img id="darius" title="Darius" src="https://cdn.lolchess.gg/images/tft/champions/set3/darius.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="ekko" title="Ekko" src="https://cdn.lolchess.gg/images/tft/champions/set3/ekko.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">    
+    <img id="ezreal" title="Ezreal" src="https://cdn.lolchess.gg/images/tft/champions/set3/ezreal.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50"> 
+    <img id="fiora" title="Fiora" src="https://cdn.lolchess.gg/images/tft/champions/set3/fiora.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="fizz" title="Fizz" src="https://cdn.lolchess.gg/images/tft/champions/set3/fizz.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="gangplank" title="Gangplank" src="https://cdn.lolchess.gg/images/tft/champions/set3/gangplank.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="graves" title="Graves" src="https://cdn.lolchess.gg/images/tft/champions/set3/graves.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="irelia" title="Irelia" src="https://cdn.lolchess.gg/images/tft/champions/set3/irelia.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="jarvaniv" title="JarvanIV" src="https://cdn.lolchess.gg/images/tft/champions/set3/jarvaniv.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="jayce" title="Jayce" src="https://cdn.lolchess.gg/images/tft/champions/set3/jayce.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="jhin" title="Jhin" src="https://cdn.lolchess.gg/images/tft/champions/set3/jhin.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="jinx" title="Jinx" src="https://cdn.lolchess.gg/images/tft/champions/set3/jinx.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="kaisa" title="KaiSa" src="https://cdn.lolchess.gg/images/tft/champions/set3/kaisa.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="karma" title="Karma" src="https://cdn.lolchess.gg/images/tft/champions/set3/karma.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="kassadin" title="Kassadin" src="https://cdn.lolchess.gg/images/tft/champions/set3/kassadin.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="kayle" title="Kayle" src="https://cdn.lolchess.gg/images/tft/champions/set3/kayle.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="khazix" title="KhaZix" src="https://cdn.lolchess.gg/images/tft/champions/set3/khazix.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="leona" title="Leona" src="https://cdn.lolchess.gg/images/tft/champions/set3/leona.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="lucian" title="Lucian" src="https://cdn.lolchess.gg/images/tft/champions/set3/lucian.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="lulu" title="Lulu" src="https://cdn.lolchess.gg/images/tft/champions/set3/lulu.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="lux" title="Lux" src="https://cdn.lolchess.gg/images/tft/champions/set3/lux.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="malphite" title="Malphite" src="https://cdn.lolchess.gg/images/tft/champions/set3/malphite.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="masteryi" title="MasterYi" src="https://cdn.lolchess.gg/images/tft/champions/set3/masteryi.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="missfortune" title="MissFortune" src="https://cdn.lolchess.gg/images/tft/champions/set3/missfortune.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="mordekaiser" title="Mordekaiser" src="https://cdn.lolchess.gg/images/tft/champions/set3/mordekaiser.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="neeko" title="neeko" src="https://cdn.lolchess.gg/images/tft/champions/set3/neeko.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="poppy" title="Poppy" src="https://cdn.lolchess.gg/images/tft/champions/set3/poppy.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="rakan" title="Rakan" src="https://cdn.lolchess.gg/images/tft/champions/set3/rakan.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="rumble" title="Rumble" src="https://cdn.lolchess.gg/images/tft/champions/set3/rumble.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="shaco" title="Shaco" src="https://cdn.lolchess.gg/images/tft/champions/set3/shaco.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="shen" title="Shen" src="https://cdn.lolchess.gg/images/tft/champions/set3/shen.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="sona" title="Sona" src="https://cdn.lolchess.gg/images/tft/champions/set3/sona.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="soraka" title="Soraka" src="https://cdn.lolchess.gg/images/tft/champions/set3/soraka.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="syndra" title="Syndra" src="https://cdn.lolchess.gg/images/tft/champions/set3/syndra.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="thresh" title="Thresh" src="https://cdn.lolchess.gg/images/tft/champions/set3/thresh.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="twistedfate" title="TwistedFate" src="https://cdn.lolchess.gg/images/tft/champions/set3/twistedfate.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="velkoz" title="VelKoz" src="https://cdn.lolchess.gg/images/tft/champions/set3/velkoz.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="vi" title="Vi" src="https://cdn.lolchess.gg/images/tft/champions/set3/vi.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="wukong" title="Wukong" src="https://cdn.lolchess.gg/images/tft/champions/set3/monkeyking.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="xayah" title="Xayah" src="https://cdn.lolchess.gg/images/tft/champions/set3/xayah.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="xerath" title="Xerath" src="https://cdn.lolchess.gg/images/tft/champions/set3/xerath.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="xinzhao" title="XinZhao" src="https://cdn.lolchess.gg/images/tft/champions/set3/xinzhao.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="yasuo" title="Yasuo" src="https://cdn.lolchess.gg/images/tft/champions/set3/yasuo.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="ziggs" title="Ziggs" src="https://cdn.lolchess.gg/images/tft/champions/set3/ziggs.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+    <img id="zoe" title="Zoe" src="https://cdn.lolchess.gg/images/tft/champions/set3/zoe.png" draggable="true" ondragstart="dragStart(event)" width="50" height="50">
+        </div>
+        <br>
+        <button type="submit" class="button">
+        Verdict?
+        </button>
+    </form>
+        <br>
+          {% if message %}
+          <h2>{{message}}</h2>
+          {% endif %}
+        <script>
+            var ahri = document.getElementById("ahri");   
+            var annie = document.getElementById("annie");
+            var ashe = document.getElementById("ashe");
+            var aurelionsol = document.getElementById("aurelionsol");
+            var blitzcrank = document.getElementById("blitzcrank");
+            var caitlyn = document.getElementById("caitlyn");
+            var chogath = document.getElementById("chogath");
+            var darius = document.getElementById("darius");
+            var ekko = document.getElementById("ekko");
+            var ezreal = document.getElementById("ezreal");
+            var fiora = document.getElementById("fiora");
+            var fizz = document.getElementById("fizz");
+            var gangplank = document.getElementById("gangplank");
+            var graves = document.getElementById("graves");
+            var irelia = document.getElementById("irelia");
+            var jarvaniv = document.getElementById("jarvaniv");
+            var jayce = document.getElementById("jayce");
+            var jhin = document.getElementById("jhin");
+            var jinx = document.getElementById("jinx");
+            var kaisa = document.getElementById("kaisa");
+            var karma = document.getElementById("karma");
+            var kassadin = document.getElementById("kassadin");
+            var kayle = document.getElementById("kayle");
+            var khazix = document.getElementById("khazix");
+            var leona = document.getElementById("leona");
+            var lucian = document.getElementById("lucian");
+            var lulu = document.getElementById("lulu");
+            var lux = document.getElementById("lux");
+            var malphite = document.getElementById("malphite");
+            var masteryi = document.getElementById("masteryi");
+            var missfortune = document.getElementById("missfortune");
+            var mordekaiser = document.getElementById("mordekaiser");
+            var neeko = document.getElementById("neeko");
+            var poppy = document.getElementById("poppy");
+            var rakan = document.getElementById("rakan");
+            var rumble = document.getElementById("rumble");
+            var shaco = document.getElementById("shaco");
+            var shen = document.getElementById("shen");
+            var sona = document.getElementById("sona");
+            var soraka = document.getElementById("soraka");
+            var syndra = document.getElementById("syndra");
+            var thresh = document.getElementById("thresh");
+            var twistedfate = document.getElementById("twistedfate");
+            var velkoz = document.getElementById("velkoz");
+            var vi = document.getElementById("vi");
+            var wukong = document.getElementById("wukong");
+            var xayah = document.getElementById("xayah");
+            var xerath = document.getElementById("xerath");
+            var xinzhao = document.getElementById("xinzhao");
+            var yasuo = document.getElementById("yasuo");
+            var ziggs = document.getElementById("ziggs");
+            var zoe = document.getElementById("zoe");
+                
+            var champ1 = document.getElementById("champ1");
+            var champ1_items = document.getElementById("champ1_items")
+            var champ1_star = document.getElementById("champ1_star")
+            
+            var champ2 = document.getElementById("champ2");
+            var champ2_items = document.getElementById("champ2_items")
+            var champ2_star = document.getElementById("champ2_star")
+            
+            var champ3 = document.getElementById("champ3");
+            var champ3_items = document.getElementById("champ3_items")
+            var champ3_star = document.getElementById("champ3_star")
+            
+            var champ4 = document.getElementById("champ4");
+            var champ4_items = document.getElementById("champ4_items")
+            var champ4_star = document.getElementById("champ4_star")
+            
+            var champ5 = document.getElementById("champ5");
+            var champ5_items = document.getElementById("champ5_items")
+            var champ5_star = document.getElementById("champ5_star")
+            
+            var champ6 = document.getElementById("champ6");
+            var champ6_items = document.getElementById("champ6_items")
+            var champ6_star = document.getElementById("champ6_star")
+            
+            var champ7 = document.getElementById("champ7");
+            var champ7_items = document.getElementById("champ7_items")
+            var champ7_star = document.getElementById("champ7_star")
+            
+            var champ8 = document.getElementById("champ8");
+            var champ8_items = document.getElementById("champ8_items")
+            var champ8_star = document.getElementById("champ8_star")
+            
+            var champ9 = document.getElementById("champ9");
+            var champ9_items = document.getElementById("champ9_items")
+            var champ9_star = document.getElementById("champ9_star")
+            
+            var champ10 = document.getElementById("champ10");
+            var champ10_items = document.getElementById("champ10_items")
+            var champ10_star = document.getElementById("champ10_star")
+            
+            var champ11 = document.getElementById("champ11");
+            var champ11_items = document.getElementById("champ11_items")
+            var champ11_star = document.getElementById("champ11_star")
+            
+            var champ12 = document.getElementById("champ12");
+            var champ12_items = document.getElementById("champ12_items")
+            var champ12_star = document.getElementById("champ12_star")
+        
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+            }
+            function allowDrop(ev) { 
+                ev.preventDefault(); 
+            } 
+              
+            function dragStart(ev) { 
+                ev.dataTransfer.setData("text", ev.target.id); 
+            } 
+            function dragDrop(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+            }  
+            function dragDrop1(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ1.textContent = ahri.title;
+                    champ1_items.name = "Ahri_items";
+                    champ1_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ1.textContent = annie.title;
+                    champ1_items.name = "Annie_items";
+                    champ1_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ1.textContent = ashe.title;
+                    champ1_items.name = "Ashe_items";
+                    champ1_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ1.textContent = aurelionsol.title;
+                    champ1_items.name = "AurelionSol_items";
+                    champ1_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ1.textContent = blitzcrank.title;
+                    champ1_items.name = "Blitzcrank_items";
+                    champ1_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ1.textContent = caitlyn.title;
+                    champ1_items.name = "Caitlyn_items";
+                    champ1_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ1.textContent = chogath.title;
+                    champ1_items.name = "ChoGath_items";
+                    champ1_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ1.textContent = darius.title;
+                    champ1_items.name = "Darius_items";
+                    champ1_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ1.textContent = ekko.title;
+                    champ1_items.name = "Ekko_items";
+                    champ1_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ1.textContent = ezreal.title;
+                    champ1_items.name = "Ezreal_items";
+                    champ1_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ1.textContent = fiora.title;
+                    champ1_items.name = "Fiora_items";
+                    champ1_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ1.textContent = fizz.title;
+                    champ1_items.name = "Fizz_items";
+                    champ1_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ1.textContent = gangplank.title;
+                    champ1_items.name = "Gangplank_items";
+                    champ1_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ1.textContent = graves.title;
+                    champ1_items.name = "Graves_items";
+                    champ1_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ1.textContent = irelia.title;
+                    champ1_items.name = "Irelia_items";
+                    champ1_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ1.textContent = jarvaniv.title;
+                    champ1_items.name = "JarvanIV_items";
+                    champ1_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ1.textContent = jayce.title;
+                    champ1_items.name = "Jayce_items";
+                    champ1_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ1.textContent = jhin.title;
+                    champ1_items.name = "Jhin_items";
+                    champ1_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ1.textContent = jinx.title;
+                    champ1_items.name = "Jinx_items";
+                    champ1_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ1.textContent = kaisa.title;
+                    champ1_items.name = "KaiSa_items";
+                    champ1_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ1.textContent = karma.title;
+                    champ1_items.name = "Karma_items";
+                    champ1_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ1.textContent = kassadin.title;
+                    champ1_items.name = "Kassadin_items";
+                    champ1_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ1.textContent = kayle.title;
+                    champ1_items.name = "Kayle_items";
+                    champ1_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ1.textContent = khazix.title;
+                    champ1_items.name = "KhaZix_items";
+                    champ1_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ1.textContent = leona.title;
+                    champ1_items.name = "Leona_items";
+                    champ1_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ1.textContent = lucian.title;
+                    champ1_items.name = "Lucian_items";
+                    champ1_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ1.textContent = lulu.title;
+                    champ1_items.name = "Lulu_items";
+                    champ1_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ1.textContent = lux.title;
+                    champ1_items.name = "Lux_items";
+                    champ1_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ1.textContent = malphite.title;
+                    champ1_items.name = "Malphite_items";
+                    champ1_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ1.textContent = masteryi.title;
+                    champ1_items.name = "MasterYi_items";
+                    champ1_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ1.textContent = missfortune.title;
+                    champ1_items.name = "MissFortune_items";
+                    champ1_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ1.textContent = mordekaiser.title;
+                    champ1_items.name = "Mordekaiser_items";
+                    champ1_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ1.textContent = neeko.title;
+                    champ1_items.name = "Neeko_items";
+                    champ1_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ1.textContent = poppy.title;
+                    champ1_items.name = "Poppy_items";
+                    champ1_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ1.textContent = rakan.title;
+                    champ1_items.name = "Rakan_items";
+                    champ1_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ1.textContent = rumble.title;
+                    champ1_items.name = "Rumble_items";
+                    champ1_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ1.textContent = shaco.title;
+                    champ1_items.name = "Shaco_items";
+                    champ1_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ1.textContent = shen.title;
+                    champ1_items.name = "Shen_items";
+                    champ1_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ1.textContent = sona.title;
+                    champ1_items.name = "Sona_items";
+                    champ1_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ1.textContent = soraka.title;
+                    champ1_items.name = "Soraka_items";
+                    champ1_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ1.textContent = syndra.title;
+                    champ1_items.name = "Syndra_items";
+                    champ1_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ1.textContent = thresh.title;
+                    champ1_items.name = "Thresh_items";
+                    champ1_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ1.textContent = twistedfate.title;
+                    champ1_items.name = "TwistedFate_items";
+                    champ1_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ1.textContent = velkoz.title;
+                    champ1_items.name = "VelKoz_items";
+                    champ1_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ1.textContent = vi.title;
+                    champ1_items.name = "Vi_items";
+                    champ1_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ1.textContent = wukong.title;
+                    champ1_items.name = "WuKong_items";
+                    champ1_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ1.textContent = xayah.title;
+                    champ1_items.name = "Xayah_items";
+                    champ1_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ1.textContent = xerath.title;
+                    champ1_items.name = "Xerath_items";
+                    champ1_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ1.textContent = xinzhao.title;
+                    champ1_items.name = "XinZhao_items";
+                    champ1_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ1.textContent = yasuo.title;
+                    champ1_items.name = "Yasuo_items";
+                    champ1_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ1.textContent = ziggs.title;
+                    champ1_items.name = "Ziggs_items";
+                    champ1_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ1.textContent = zoe.title;
+                    champ1_items.name = "Zoe_items";
+                    champ1_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop2(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ2.textContent = ahri.title;
+                    champ2_items.name = "Ahri_items";
+                    champ2_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ2.textContent = annie.title;
+                    champ2_items.name = "Annie_items";
+                    champ2_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ2.textContent = ashe.title;
+                    champ2_items.name = "Ashe_items";
+                    champ2_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ2.textContent = aurelionsol.title;
+                    champ2_items.name = "AurelionSol_items";
+                    champ2_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ2.textContent = blitzcrank.title;
+                    champ2_items.name = "Blitzcrank_items";
+                    champ2_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ2.textContent = caitlyn.title;
+                    champ2_items.name = "Caitlyn_items";
+                    champ2_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ2.textContent = chogath.title;
+                    champ2_items.name = "ChoGath_items";
+                    champ2_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ2.textContent = darius.title;
+                    champ2_items.name = "Darius_items";
+                    champ2_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ2.textContent = ekko.title;
+                    champ2_items.name = "Ekko_items";
+                    champ2_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ2.textContent = ezreal.title;
+                    champ2_items.name = "Ezreal_items";
+                    champ2_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ2.textContent = fiora.title;
+                    champ2_items.name = "Fiora_items";
+                    champ2_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ2.textContent = fizz.title;
+                    champ2_items.name = "Fizz_items";
+                    champ2_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ2.textContent = gangplank.title;
+                    champ2_items.name = "Gangplank_items";
+                    champ2_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ2.textContent = graves.title;
+                    champ2_items.name = "Graves_items";
+                    champ2_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ2.textContent = irelia.title;
+                    champ2_items.name = "Irelia_items";
+                    champ2_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ2.textContent = jarvaniv.title;
+                    champ2_items.name = "JarvanIV_items";
+                    champ2_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ2.textContent = jayce.title;
+                    champ2_items.name = "Jayce_items";
+                    champ2_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ2.textContent = jhin.title;
+                    champ2_items.name = "Jhin_items";
+                    champ2_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ2.textContent = jinx.title;
+                    champ2_items.name = "Jinx_items";
+                    champ2_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ2.textContent = kaisa.title;
+                    champ2_items.name = "KaiSa_items";
+                    champ2_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ2.textContent = karma.title;
+                    champ2_items.name = "Karma_items";
+                    champ2_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ2.textContent = kassadin.title;
+                    champ2_items.name = "Kassadin_items";
+                    champ2_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ2.textContent = kayle.title;
+                    champ2_items.name = "Kayle_items";
+                    champ2_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ2.textContent = khazix.title;
+                    champ2_items.name = "KhaZix_items";
+                    champ2_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ2.textContent = leona.title;
+                    champ2_items.name = "Leona_items";
+                    champ2_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ2.textContent = lucian.title;
+                    champ2_items.name = "Lucian_items";
+                    champ2_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ2.textContent = lulu.title;
+                    champ2_items.name = "Lulu_items";
+                    champ2_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ2.textContent = lux.title;
+                    champ2_items.name = "Lux_items";
+                    champ2_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ2.textContent = malphite.title;
+                    champ2_items.name = "Malphite_items";
+                    champ2_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ2.textContent = masteryi.title;
+                    champ2_items.name = "MasterYi_items";
+                    champ2_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ2.textContent = missfortune.title;
+                    champ2_items.name = "MissFortune_items";
+                    champ2_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ2.textContent = mordekaiser.title;
+                    champ2_items.name = "Mordekaiser_items";
+                    champ2_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ2.textContent = neeko.title;
+                    champ2_items.name = "Neeko_items";
+                    champ2_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ2.textContent = poppy.title;
+                    champ2_items.name = "Poppy_items";
+                    champ2_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ2.textContent = rakan.title;
+                    champ2_items.name = "Rakan_items";
+                    champ2_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ2.textContent = rumble.title;
+                    champ2_items.name = "Rumble_items";
+                    champ2_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ2.textContent = shaco.title;
+                    champ2_items.name = "Shaco_items";
+                    champ2_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ2.textContent = shen.title;
+                    champ2_items.name = "Shen_items";
+                    champ2_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ2.textContent = sona.title;
+                    champ2_items.name = "Sona_items";
+                    champ2_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ2.textContent = soraka.title;
+                    champ2_items.name = "Soraka_items";
+                    champ2_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ2.textContent = syndra.title;
+                    champ2_items.name = "Syndra_items";
+                    champ2_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ2.textContent = thresh.title;
+                    champ2_items.name = "Thresh_items";
+                    champ2_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ2.textContent = twistedfate.title;
+                    champ2_items.name = "TwistedFate_items";
+                    champ2_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ2.textContent = velkoz.title;
+                    champ2_items.name = "VelKoz_items";
+                    champ2_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ2.textContent = vi.title;
+                    champ2_items.name = "Vi_items";
+                    champ2_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ2.textContent = wukong.title;
+                    champ2_items.name = "WuKong_items";
+                    champ2_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ2.textContent = xayah.title;
+                    champ2_items.name = "Xayah_items";
+                    champ2_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ2.textContent = xerath.title;
+                    champ2_items.name = "Xerath_items";
+                    champ2_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ2.textContent = xinzhao.title;
+                    champ2_items.name = "XinZhao_items";
+                    champ2_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ2.textContent = yasuo.title;
+                    champ2_items.name = "Yasuo_items";
+                    champ2_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ2.textContent = ziggs.title;
+                    champ2_items.name = "Ziggs_items";
+                    champ2_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ2.textContent = zoe.title;
+                    champ2_items.name = "Zoe_items";
+                    champ2_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop3(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ3.textContent = ahri.title;
+                    champ3_items.name = "Ahri_items";
+                    champ3_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ3.textContent = annie.title;
+                    champ3_items.name = "Annie_items";
+                    champ3_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ3.textContent = ashe.title;
+                    champ3_items.name = "Ashe_items";
+                    champ3_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ3.textContent = aurelionsol.title;
+                    champ3_items.name = "AurelionSol_items";
+                    champ3_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ3.textContent = blitzcrank.title;
+                    champ3_items.name = "Blitzcrank_items";
+                    champ3_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ3.textContent = caitlyn.title;
+                    champ3_items.name = "Caitlyn_items";
+                    champ3_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ3.textContent = chogath.title;
+                    champ3_items.name = "ChoGath_items";
+                    champ3_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ3.textContent = darius.title;
+                    champ3_items.name = "Darius_items";
+                    champ3_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ3.textContent = ekko.title;
+                    champ3_items.name = "Ekko_items";
+                    champ3_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ3.textContent = ezreal.title;
+                    champ3_items.name = "Ezreal_items";
+                    champ3_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ3.textContent = fiora.title;
+                    champ3_items.name = "Fiora_items";
+                    champ3_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ3.textContent = fizz.title;
+                    champ3_items.name = "Fizz_items";
+                    champ3_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ3.textContent = gangplank.title;
+                    champ3_items.name = "Gangplank_items";
+                    champ3_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ3.textContent = graves.title;
+                    champ3_items.name = "Graves_items";
+                    champ3_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ3.textContent = irelia.title;
+                    champ3_items.name = "Irelia_items";
+                    champ3_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ3.textContent = jarvaniv.title;
+                    champ3_items.name = "JarvanIV_items";
+                    champ3_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ3.textContent = jayce.title;
+                    champ3_items.name = "Jayce_items";
+                    champ3_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ3.textContent = jhin.title;
+                    champ3_items.name = "Jhin_items";
+                    champ3_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ3.textContent = jinx.title;
+                    champ3_items.name = "Jinx_items";
+                    champ3_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ3.textContent = kaisa.title;
+                    champ3_items.name = "KaiSa_items";
+                    champ3_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ3.textContent = karma.title;
+                    champ3_items.name = "Karma_items";
+                    champ3_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ3.textContent = kassadin.title;
+                    champ3_items.name = "Kassadin_items";
+                    champ3_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ3.textContent = kayle.title;
+                    champ3_items.name = "Kayle_items";
+                    champ3_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ3.textContent = khazix.title;
+                    champ3_items.name = "KhaZix_items";
+                    champ3_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ3.textContent = leona.title;
+                    champ3_items.name = "Leona_items";
+                    champ3_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ3.textContent = lucian.title;
+                    champ3_items.name = "Lucian_items";
+                    champ3_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ3.textContent = lulu.title;
+                    champ3_items.name = "Lulu_items";
+                    champ3_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ3.textContent = lux.title;
+                    champ3_items.name = "Lux_items";
+                    champ3_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ3.textContent = malphite.title;
+                    champ3_items.name = "Malphite_items";
+                    champ3_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ3.textContent = masteryi.title;
+                    champ3_items.name = "MasterYi_items";
+                    champ3_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ3.textContent = missfortune.title;
+                    champ3_items.name = "MissFortune_items";
+                    champ3_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ3.textContent = mordekaiser.title;
+                    champ3_items.name = "Mordekaiser_items";
+                    champ3_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ3.textContent = neeko.title;
+                    champ3_items.name = "Neeko_items";
+                    champ3_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ3.textContent = poppy.title;
+                    champ3_items.name = "Poppy_items";
+                    champ3_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ3.textContent = rakan.title;
+                    champ3_items.name = "Rakan_items";
+                    champ3_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ3.textContent = rumble.title;
+                    champ3_items.name = "Rumble_items";
+                    champ3_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ3.textContent = shaco.title;
+                    champ3_items.name = "Shaco_items";
+                    champ3_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ3.textContent = shen.title;
+                    champ3_items.name = "Shen_items";
+                    champ3_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ3.textContent = sona.title;
+                    champ3_items.name = "Sona_items";
+                    champ3_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ3.textContent = soraka.title;
+                    champ3_items.name = "Soraka_items";
+                    champ3_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ3.textContent = syndra.title;
+                    champ3_items.name = "Syndra_items";
+                    champ3_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ3.textContent = thresh.title;
+                    champ3_items.name = "Thresh_items";
+                    champ3_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ3.textContent = twistedfate.title;
+                    champ3_items.name = "TwistedFate_items";
+                    champ3_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ3.textContent = velkoz.title;
+                    champ3_items.name = "VelKoz_items";
+                    champ3_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ3.textContent = vi.title;
+                    champ3_items.name = "Vi_items";
+                    champ3_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ3.textContent = wukong.title;
+                    champ3_items.name = "WuKong_items";
+                    champ3_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ3.textContent = xayah.title;
+                    champ3_items.name = "Xayah_items";
+                    champ3_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ3.textContent = xerath.title;
+                    champ3_items.name = "Xerath_items";
+                    champ3_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ3.textContent = xinzhao.title;
+                    champ3_items.name = "XinZhao_items";
+                    champ3_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ3.textContent = yasuo.title;
+                    champ3_items.name = "Yasuo_items";
+                    champ3_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ3.textContent = ziggs.title;
+                    champ3_items.name = "Ziggs_items";
+                    champ3_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ3.textContent = zoe.title;
+                    champ3_items.name = "Zoe_items";
+                    champ3_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop4(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ4.textContent = ahri.title;
+                    champ4_items.name = "Ahri_items";
+                    champ4_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ4.textContent = annie.title;
+                    champ4_items.name = "Annie_items";
+                    champ4_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ4.textContent = ashe.title;
+                    champ4_items.name = "Ashe_items";
+                    champ4_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ4.textContent = aurelionsol.title;
+                    champ4_items.name = "AurelionSol_items";
+                    champ4_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ4.textContent = blitzcrank.title;
+                    champ4_items.name = "Blitzcrank_items";
+                    champ4_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ4.textContent = caitlyn.title;
+                    champ4_items.name = "Caitlyn_items";
+                    champ4_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ4.textContent = chogath.title;
+                    champ4_items.name = "ChoGath_items";
+                    champ4_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ4.textContent = darius.title;
+                    champ4_items.name = "Darius_items";
+                    champ4_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ4.textContent = ekko.title;
+                    champ4_items.name = "Ekko_items";
+                    champ4_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ4.textContent = ezreal.title;
+                    champ4_items.name = "Ezreal_items";
+                    champ4_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ4.textContent = fiora.title;
+                    champ4_items.name = "Fiora_items";
+                    champ4_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ4.textContent = fizz.title;
+                    champ4_items.name = "Fizz_items";
+                    champ4_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ4.textContent = gangplank.title;
+                    champ4_items.name = "Gangplank_items";
+                    champ4_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ4.textContent = graves.title;
+                    champ4_items.name = "Graves_items";
+                    champ4_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ4.textContent = irelia.title;
+                    champ4_items.name = "Irelia_items";
+                    champ4_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ4.textContent = jarvaniv.title;
+                    champ4_items.name = "JarvanIV_items";
+                    champ4_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ4.textContent = jayce.title;
+                    champ4_items.name = "Jayce_items";
+                    champ4_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ4.textContent = jhin.title;
+                    champ4_items.name = "Jhin_items";
+                    champ4_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ4.textContent = jinx.title;
+                    champ4_items.name = "Jinx_items";
+                    champ4_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ4.textContent = kaisa.title;
+                    champ4_items.name = "KaiSa_items";
+                    champ4_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ4.textContent = karma.title;
+                    champ4_items.name = "Karma_items";
+                    champ4_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ4.textContent = kassadin.title;
+                    champ4_items.name = "Kassadin_items";
+                    champ4_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ4.textContent = kayle.title;
+                    champ4_items.name = "Kayle_items";
+                    champ4_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ4.textContent = khazix.title;
+                    champ4_items.name = "KhaZix_items";
+                    champ4_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ4.textContent = leona.title;
+                    champ4_items.name = "Leona_items";
+                    champ4_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ4.textContent = lucian.title;
+                    champ4_items.name = "Lucian_items";
+                    champ4_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ4.textContent = lulu.title;
+                    champ4_items.name = "Lulu_items";
+                    champ4_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ4.textContent = lux.title;
+                    champ4_items.name = "Lux_items";
+                    champ4_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ4.textContent = malphite.title;
+                    champ4_items.name = "Malphite_items";
+                    champ4_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ4.textContent = masteryi.title;
+                    champ4_items.name = "MasterYi_items";
+                    champ4_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ4.textContent = missfortune.title;
+                    champ4_items.name = "MissFortune_items";
+                    champ4_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ4.textContent = mordekaiser.title;
+                    champ4_items.name = "Mordekaiser_items";
+                    champ4_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ4.textContent = neeko.title;
+                    champ4_items.name = "Neeko_items";
+                    champ4_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ4.textContent = poppy.title;
+                    champ4_items.name = "Poppy_items";
+                    champ4_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ4.textContent = rakan.title;
+                    champ4_items.name = "Rakan_items";
+                    champ4_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ4.textContent = rumble.title;
+                    champ4_items.name = "Rumble_items";
+                    champ4_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ4.textContent = shaco.title;
+                    champ4_items.name = "Shaco_items";
+                    champ4_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ4.textContent = shen.title;
+                    champ4_items.name = "Shen_items";
+                    champ4_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ4.textContent = sona.title;
+                    champ4_items.name = "Sona_items";
+                    champ4_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ4.textContent = soraka.title;
+                    champ4_items.name = "Soraka_items";
+                    champ4_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ4.textContent = syndra.title;
+                    champ4_items.name = "Syndra_items";
+                    champ4_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ4.textContent = thresh.title;
+                    champ4_items.name = "Thresh_items";
+                    champ4_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ4.textContent = twistedfate.title;
+                    champ4_items.name = "TwistedFate_items";
+                    champ4_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ4.textContent = velkoz.title;
+                    champ4_items.name = "VelKoz_items";
+                    champ4_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ4.textContent = vi.title;
+                    champ4_items.name = "Vi_items";
+                    champ4_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ4.textContent = wukong.title;
+                    champ4_items.name = "WuKong_items";
+                    champ4_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ4.textContent = xayah.title;
+                    champ4_items.name = "Xayah_items";
+                    champ4_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ4.textContent = xerath.title;
+                    champ4_items.name = "Xerath_items";
+                    champ4_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ4.textContent = xinzhao.title;
+                    champ4_items.name = "XinZhao_items";
+                    champ4_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ4.textContent = yasuo.title;
+                    champ4_items.name = "Yasuo_items";
+                    champ4_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ4.textContent = ziggs.title;
+                    champ4_items.name = "Ziggs_items";
+                    champ4_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ4.textContent = zoe.title;
+                    champ4_items.name = "Zoe_items";
+                    champ4_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop5(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ5.textContent = ahri.title;
+                    champ5_items.name = "Ahri_items";
+                    champ5_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ5.textContent = annie.title;
+                    champ5_items.name = "Annie_items";
+                    champ5_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ5.textContent = ashe.title;
+                    champ5_items.name = "Ashe_items";
+                    champ5_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ5.textContent = aurelionsol.title;
+                    champ5_items.name = "AurelionSol_items";
+                    champ5_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ5.textContent = blitzcrank.title;
+                    champ5_items.name = "Blitzcrank_items";
+                    champ5_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ5.textContent = caitlyn.title;
+                    champ5_items.name = "Caitlyn_items";
+                    champ5_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ5.textContent = chogath.title;
+                    champ5_items.name = "ChoGath_items";
+                    champ5_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ5.textContent = darius.title;
+                    champ5_items.name = "Darius_items";
+                    champ5_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ5.textContent = ekko.title;
+                    champ5_items.name = "Ekko_items";
+                    champ5_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ5.textContent = ezreal.title;
+                    champ5_items.name = "Ezreal_items";
+                    champ5_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ5.textContent = fiora.title;
+                    champ5_items.name = "Fiora_items";
+                    champ5_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ5.textContent = fizz.title;
+                    champ5_items.name = "Fizz_items";
+                    champ5_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ5.textContent = gangplank.title;
+                    champ5_items.name = "Gangplank_items";
+                    champ5_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ5.textContent = graves.title;
+                    champ5_items.name = "Graves_items";
+                    champ5_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ5.textContent = irelia.title;
+                    champ5_items.name = "Irelia_items";
+                    champ5_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ5.textContent = jarvaniv.title;
+                    champ5_items.name = "JarvanIV_items";
+                    champ5_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ5.textContent = jayce.title;
+                    champ5_items.name = "Jayce_items";
+                    champ5_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ5.textContent = jhin.title;
+                    champ5_items.name = "Jhin_items";
+                    champ5_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ5.textContent = jinx.title;
+                    champ5_items.name = "Jinx_items";
+                    champ5_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ5.textContent = kaisa.title;
+                    champ5_items.name = "KaiSa_items";
+                    champ5_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ5.textContent = karma.title;
+                    champ5_items.name = "Karma_items";
+                    champ5_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ5.textContent = kassadin.title;
+                    champ5_items.name = "Kassadin_items";
+                    champ5_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ5.textContent = kayle.title;
+                    champ5_items.name = "Kayle_items";
+                    champ5_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ5.textContent = khazix.title;
+                    champ5_items.name = "KhaZix_items";
+                    champ5_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ5.textContent = leona.title;
+                    champ5_items.name = "Leona_items";
+                    champ5_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ5.textContent = lucian.title;
+                    champ5_items.name = "Lucian_items";
+                    champ5_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ5.textContent = lulu.title;
+                    champ5_items.name = "Lulu_items";
+                    champ5_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ5.textContent = lux.title;
+                    champ5_items.name = "Lux_items";
+                    champ5_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ5.textContent = malphite.title;
+                    champ5_items.name = "Malphite_items";
+                    champ5_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ5.textContent = masteryi.title;
+                    champ5_items.name = "MasterYi_items";
+                    champ5_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ5.textContent = missfortune.title;
+                    champ5_items.name = "MissFortune_items";
+                    champ5_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ5.textContent = mordekaiser.title;
+                    champ5_items.name = "Mordekaiser_items";
+                    champ5_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ5.textContent = neeko.title;
+                    champ5_items.name = "Neeko_items";
+                    champ5_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ5.textContent = poppy.title;
+                    champ5_items.name = "Poppy_items";
+                    champ5_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ5.textContent = rakan.title;
+                    champ5_items.name = "Rakan_items";
+                    champ5_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ5.textContent = rumble.title;
+                    champ5_items.name = "Rumble_items";
+                    champ5_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ5.textContent = shaco.title;
+                    champ5_items.name = "Shaco_items";
+                    champ5_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ5.textContent = shen.title;
+                    champ5_items.name = "Shen_items";
+                    champ5_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ5.textContent = sona.title;
+                    champ5_items.name = "Sona_items";
+                    champ5_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ5.textContent = soraka.title;
+                    champ5_items.name = "Soraka_items";
+                    champ5_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ5.textContent = syndra.title;
+                    champ5_items.name = "Syndra_items";
+                    champ5_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ5.textContent = thresh.title;
+                    champ5_items.name = "Thresh_items";
+                    champ5_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ5.textContent = twistedfate.title;
+                    champ5_items.name = "TwistedFate_items";
+                    champ5_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ5.textContent = velkoz.title;
+                    champ5_items.name = "VelKoz_items";
+                    champ5_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ5.textContent = vi.title;
+                    champ5_items.name = "Vi_items";
+                    champ5_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ5.textContent = wukong.title;
+                    champ5_items.name = "WuKong_items";
+                    champ5_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ5.textContent = xayah.title;
+                    champ5_items.name = "Xayah_items";
+                    champ5_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ5.textContent = xerath.title;
+                    champ5_items.name = "Xerath_items";
+                    champ5_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ5.textContent = xinzhao.title;
+                    champ5_items.name = "XinZhao_items";
+                    champ5_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ5.textContent = yasuo.title;
+                    champ5_items.name = "Yasuo_items";
+                    champ5_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ5.textContent = ziggs.title;
+                    champ5_items.name = "Ziggs_items";
+                    champ5_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ5.textContent = zoe.title;
+                    champ5_items.name = "Zoe_items";
+                    champ5_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop6(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ6.textContent = ahri.title;
+                    champ6_items.name = "Ahri_items";
+                    champ6_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ6.textContent = annie.title;
+                    champ6_items.name = "Annie_items";
+                    champ6_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ6.textContent = ashe.title;
+                    champ6_items.name = "Ashe_items";
+                    champ6_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ6.textContent = aurelionsol.title;
+                    champ6_items.name = "AurelionSol_items";
+                    champ6_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ6.textContent = blitzcrank.title;
+                    champ6_items.name = "Blitzcrank_items";
+                    champ6_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ6.textContent = caitlyn.title;
+                    champ6_items.name = "Caitlyn_items";
+                    champ6_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ6.textContent = chogath.title;
+                    champ6_items.name = "ChoGath_items";
+                    champ6_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ6.textContent = darius.title;
+                    champ6_items.name = "Darius_items";
+                    champ6_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ6.textContent = ekko.title;
+                    champ6_items.name = "Ekko_items";
+                    champ6_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ6.textContent = ezreal.title;
+                    champ6_items.name = "Ezreal_items";
+                    champ6_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ6.textContent = fiora.title;
+                    champ6_items.name = "Fiora_items";
+                    champ6_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ6.textContent = fizz.title;
+                    champ6_items.name = "Fizz_items";
+                    champ6_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ6.textContent = gangplank.title;
+                    champ6_items.name = "Gangplank_items";
+                    champ6_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ6.textContent = graves.title;
+                    champ6_items.name = "Graves_items";
+                    champ6_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ6.textContent = irelia.title;
+                    champ6_items.name = "Irelia_items";
+                    champ6_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ6.textContent = jarvaniv.title;
+                    champ6_items.name = "JarvanIV_items";
+                    champ6_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ6.textContent = jayce.title;
+                    champ6_items.name = "Jayce_items";
+                    champ6_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ6.textContent = jhin.title;
+                    champ6_items.name = "Jhin_items";
+                    champ6_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ6.textContent = jinx.title;
+                    champ6_items.name = "Jinx_items";
+                    champ6_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ6.textContent = kaisa.title;
+                    champ6_items.name = "KaiSa_items";
+                    champ6_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ6.textContent = karma.title;
+                    champ6_items.name = "Karma_items";
+                    champ6_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ6.textContent = kassadin.title;
+                    champ6_items.name = "Kassadin_items";
+                    champ6_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ6.textContent = kayle.title;
+                    champ6_items.name = "Kayle_items";
+                    champ6_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ6.textContent = khazix.title;
+                    champ6_items.name = "KhaZix_items";
+                    champ6_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ6.textContent = leona.title;
+                    champ6_items.name = "Leona_items";
+                    champ6_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ6.textContent = lucian.title;
+                    champ6_items.name = "Lucian_items";
+                    champ6_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ6.textContent = lulu.title;
+                    champ6_items.name = "Lulu_items";
+                    champ6_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ6.textContent = lux.title;
+                    champ6_items.name = "Lux_items";
+                    champ6_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ6.textContent = malphite.title;
+                    champ6_items.name = "Malphite_items";
+                    champ6_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ6.textContent = masteryi.title;
+                    champ6_items.name = "MasterYi_items";
+                    champ6_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ6.textContent = missfortune.title;
+                    champ6_items.name = "MissFortune_items";
+                    champ6_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ6.textContent = mordekaiser.title;
+                    champ6_items.name = "Mordekaiser_items";
+                    champ6_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ6.textContent = neeko.title;
+                    champ6_items.name = "Neeko_items";
+                    champ6_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ6.textContent = poppy.title;
+                    champ6_items.name = "Poppy_items";
+                    champ6_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ6.textContent = rakan.title;
+                    champ6_items.name = "Rakan_items";
+                    champ6_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ6.textContent = rumble.title;
+                    champ6_items.name = "Rumble_items";
+                    champ6_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ6.textContent = shaco.title;
+                    champ6_items.name = "Shaco_items";
+                    champ6_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ6.textContent = shen.title;
+                    champ6_items.name = "Shen_items";
+                    champ6_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ6.textContent = sona.title;
+                    champ6_items.name = "Sona_items";
+                    champ6_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ6.textContent = soraka.title;
+                    champ6_items.name = "Soraka_items";
+                    champ6_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ6.textContent = syndra.title;
+                    champ6_items.name = "Syndra_items";
+                    champ6_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ6.textContent = thresh.title;
+                    champ6_items.name = "Thresh_items";
+                    champ6_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ6.textContent = twistedfate.title;
+                    champ6_items.name = "TwistedFate_items";
+                    champ6_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ6.textContent = velkoz.title;
+                    champ6_items.name = "VelKoz_items";
+                    champ6_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ6.textContent = vi.title;
+                    champ6_items.name = "Vi_items";
+                    champ6_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ6.textContent = wukong.title;
+                    champ6_items.name = "WuKong_items";
+                    champ6_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ6.textContent = xayah.title;
+                    champ6_items.name = "Xayah_items";
+                    champ6_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ6.textContent = xerath.title;
+                    champ6_items.name = "Xerath_items";
+                    champ6_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ6.textContent = xinzhao.title;
+                    champ6_items.name = "XinZhao_items";
+                    champ6_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ6.textContent = yasuo.title;
+                    champ6_items.name = "Yasuo_items";
+                    champ6_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ6.textContent = ziggs.title;
+                    champ6_items.name = "Ziggs_items";
+                    champ6_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ6.textContent = zoe.title;
+                    champ6_items.name = "Zoe_items";
+                    champ6_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop7(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ7.textContent = ahri.title;
+                    champ7_items.name = "Ahri_items";
+                    champ7_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ7.textContent = annie.title;
+                    champ7_items.name = "Annie_items";
+                    champ7_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ7.textContent = ashe.title;
+                    champ7_items.name = "Ashe_items";
+                    champ7_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ7.textContent = aurelionsol.title;
+                    champ7_items.name = "AurelionSol_items";
+                    champ7_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ7.textContent = blitzcrank.title;
+                    champ7_items.name = "Blitzcrank_items";
+                    champ7_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ7.textContent = caitlyn.title;
+                    champ7_items.name = "Caitlyn_items";
+                    champ7_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ7.textContent = chogath.title;
+                    champ7_items.name = "ChoGath_items";
+                    champ7_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ7.textContent = darius.title;
+                    champ7_items.name = "Darius_items";
+                    champ7_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ7.textContent = ekko.title;
+                    champ7_items.name = "Ekko_items";
+                    champ7_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ7.textContent = ezreal.title;
+                    champ7_items.name = "Ezreal_items";
+                    champ7_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ7.textContent = fiora.title;
+                    champ7_items.name = "Fiora_items";
+                    champ7_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ7.textContent = fizz.title;
+                    champ7_items.name = "Fizz_items";
+                    champ7_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ7.textContent = gangplank.title;
+                    champ7_items.name = "Gangplank_items";
+                    champ7_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ7.textContent = graves.title;
+                    champ7_items.name = "Graves_items";
+                    champ7_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ7.textContent = irelia.title;
+                    champ7_items.name = "Irelia_items";
+                    champ7_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ7.textContent = jarvaniv.title;
+                    champ7_items.name = "JarvanIV_items";
+                    champ7_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ7.textContent = jayce.title;
+                    champ7_items.name = "Jayce_items";
+                    champ7_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ7.textContent = jhin.title;
+                    champ7_items.name = "Jhin_items";
+                    champ7_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ7.textContent = jinx.title;
+                    champ7_items.name = "Jinx_items";
+                    champ7_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ7.textContent = kaisa.title;
+                    champ7_items.name = "KaiSa_items";
+                    champ7_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ7.textContent = karma.title;
+                    champ7_items.name = "Karma_items";
+                    champ7_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ7.textContent = kassadin.title;
+                    champ7_items.name = "Kassadin_items";
+                    champ7_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ7.textContent = kayle.title;
+                    champ7_items.name = "Kayle_items";
+                    champ7_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ7.textContent = khazix.title;
+                    champ7_items.name = "KhaZix_items";
+                    champ7_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ7.textContent = leona.title;
+                    champ7_items.name = "Leona_items";
+                    champ7_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ7.textContent = lucian.title;
+                    champ7_items.name = "Lucian_items";
+                    champ7_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ7.textContent = lulu.title;
+                    champ7_items.name = "Lulu_items";
+                    champ7_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ7.textContent = lux.title;
+                    champ7_items.name = "Lux_items";
+                    champ7_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ7.textContent = malphite.title;
+                    champ7_items.name = "Malphite_items";
+                    champ7_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ7.textContent = masteryi.title;
+                    champ7_items.name = "MasterYi_items";
+                    champ7_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ7.textContent = missfortune.title;
+                    champ7_items.name = "MissFortune_items";
+                    champ7_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ7.textContent = mordekaiser.title;
+                    champ7_items.name = "Mordekaiser_items";
+                    champ7_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ7.textContent = neeko.title;
+                    champ7_items.name = "Neeko_items";
+                    champ7_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ7.textContent = poppy.title;
+                    champ7_items.name = "Poppy_items";
+                    champ7_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ7.textContent = rakan.title;
+                    champ7_items.name = "Rakan_items";
+                    champ7_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ7.textContent = rumble.title;
+                    champ7_items.name = "Rumble_items";
+                    champ7_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ7.textContent = shaco.title;
+                    champ7_items.name = "Shaco_items";
+                    champ7_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ7.textContent = shen.title;
+                    champ7_items.name = "Shen_items";
+                    champ7_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ7.textContent = sona.title;
+                    champ7_items.name = "Sona_items";
+                    champ7_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ7.textContent = soraka.title;
+                    champ7_items.name = "Soraka_items";
+                    champ7_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ7.textContent = syndra.title;
+                    champ7_items.name = "Syndra_items";
+                    champ7_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ7.textContent = thresh.title;
+                    champ7_items.name = "Thresh_items";
+                    champ7_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ7.textContent = twistedfate.title;
+                    champ7_items.name = "TwistedFate_items";
+                    champ7_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ7.textContent = velkoz.title;
+                    champ7_items.name = "VelKoz_items";
+                    champ7_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ7.textContent = vi.title;
+                    champ7_items.name = "Vi_items";
+                    champ7_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ7.textContent = wukong.title;
+                    champ7_items.name = "WuKong_items";
+                    champ7_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ7.textContent = xayah.title;
+                    champ7_items.name = "Xayah_items";
+                    champ7_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ7.textContent = xerath.title;
+                    champ7_items.name = "Xerath_items";
+                    champ7_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ7.textContent = xinzhao.title;
+                    champ7_items.name = "XinZhao_items";
+                    champ7_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ7.textContent = yasuo.title;
+                    champ7_items.name = "Yasuo_items";
+                    champ7_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ7.textContent = ziggs.title;
+                    champ7_items.name = "Ziggs_items";
+                    champ7_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ7.textContent = zoe.title;
+                    champ7_items.name = "Zoe_items";
+                    champ7_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop8(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ8.textContent = ahri.title;
+                    champ8_items.name = "Ahri_items";
+                    champ8_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ8.textContent = annie.title;
+                    champ8_items.name = "Annie_items";
+                    champ8_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ8.textContent = ashe.title;
+                    champ8_items.name = "Ashe_items";
+                    champ8_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ8.textContent = aurelionsol.title;
+                    champ8_items.name = "AurelionSol_items";
+                    champ8_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ8.textContent = blitzcrank.title;
+                    champ8_items.name = "Blitzcrank_items";
+                    champ8_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ8.textContent = caitlyn.title;
+                    champ8_items.name = "Caitlyn_items";
+                    champ8_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ8.textContent = chogath.title;
+                    champ8_items.name = "ChoGath_items";
+                    champ8_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ8.textContent = darius.title;
+                    champ8_items.name = "Darius_items";
+                    champ8_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ8.textContent = ekko.title;
+                    champ8_items.name = "Ekko_items";
+                    champ8_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ8.textContent = ezreal.title;
+                    champ8_items.name = "Ezreal_items";
+                    champ8_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ8.textContent = fiora.title;
+                    champ8_items.name = "Fiora_items";
+                    champ8_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ8.textContent = fizz.title;
+                    champ8_items.name = "Fizz_items";
+                    champ8_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ8.textContent = gangplank.title;
+                    champ8_items.name = "Gangplank_items";
+                    champ8_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ8.textContent = graves.title;
+                    champ8_items.name = "Graves_items";
+                    champ8_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ8.textContent = irelia.title;
+                    champ8_items.name = "Irelia_items";
+                    champ8_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ8.textContent = jarvaniv.title;
+                    champ8_items.name = "JarvanIV_items";
+                    champ8_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ8.textContent = jayce.title;
+                    champ8_items.name = "Jayce_items";
+                    champ8_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ8.textContent = jhin.title;
+                    champ8_items.name = "Jhin_items";
+                    champ8_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ8.textContent = jinx.title;
+                    champ8_items.name = "Jinx_items";
+                    champ8_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ8.textContent = kaisa.title;
+                    champ8_items.name = "KaiSa_items";
+                    champ8_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ8.textContent = karma.title;
+                    champ8_items.name = "Karma_items";
+                    champ8_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ8.textContent = kassadin.title;
+                    champ8_items.name = "Kassadin_items";
+                    champ8_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ8.textContent = kayle.title;
+                    champ8_items.name = "Kayle_items";
+                    champ8_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ8.textContent = khazix.title;
+                    champ8_items.name = "KhaZix_items";
+                    champ8_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ8.textContent = leona.title;
+                    champ8_items.name = "Leona_items";
+                    champ8_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ8.textContent = lucian.title;
+                    champ8_items.name = "Lucian_items";
+                    champ8_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ8.textContent = lulu.title;
+                    champ8_items.name = "Lulu_items";
+                    champ8_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ8.textContent = lux.title;
+                    champ8_items.name = "Lux_items";
+                    champ8_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ8.textContent = malphite.title;
+                    champ8_items.name = "Malphite_items";
+                    champ8_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ8.textContent = masteryi.title;
+                    champ8_items.name = "MasterYi_items";
+                    champ8_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ8.textContent = missfortune.title;
+                    champ8_items.name = "MissFortune_items";
+                    champ8_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ8.textContent = mordekaiser.title;
+                    champ8_items.name = "Mordekaiser_items";
+                    champ8_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ8.textContent = neeko.title;
+                    champ8_items.name = "Neeko_items";
+                    champ8_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ8.textContent = poppy.title;
+                    champ8_items.name = "Poppy_items";
+                    champ8_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ8.textContent = rakan.title;
+                    champ8_items.name = "Rakan_items";
+                    champ8_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ8.textContent = rumble.title;
+                    champ8_items.name = "Rumble_items";
+                    champ8_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ8.textContent = shaco.title;
+                    champ8_items.name = "Shaco_items";
+                    champ8_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ8.textContent = shen.title;
+                    champ8_items.name = "Shen_items";
+                    champ8_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ8.textContent = sona.title;
+                    champ8_items.name = "Sona_items";
+                    champ8_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ8.textContent = soraka.title;
+                    champ8_items.name = "Soraka_items";
+                    champ8_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ8.textContent = syndra.title;
+                    champ8_items.name = "Syndra_items";
+                    champ8_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ8.textContent = thresh.title;
+                    champ8_items.name = "Thresh_items";
+                    champ8_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ8.textContent = twistedfate.title;
+                    champ8_items.name = "TwistedFate_items";
+                    champ8_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ8.textContent = velkoz.title;
+                    champ8_items.name = "VelKoz_items";
+                    champ8_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ8.textContent = vi.title;
+                    champ8_items.name = "Vi_items";
+                    champ8_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ8.textContent = wukong.title;
+                    champ8_items.name = "WuKong_items";
+                    champ8_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ8.textContent = xayah.title;
+                    champ8_items.name = "Xayah_items";
+                    champ8_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ8.textContent = xerath.title;
+                    champ8_items.name = "Xerath_items";
+                    champ8_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ8.textContent = xinzhao.title;
+                    champ8_items.name = "XinZhao_items";
+                    champ8_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ8.textContent = yasuo.title;
+                    champ8_items.name = "Yasuo_items";
+                    champ8_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ8.textContent = ziggs.title;
+                    champ8_items.name = "Ziggs_items";
+                    champ8_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ8.textContent = zoe.title;
+                    champ8_items.name = "Zoe_items";
+                    champ8_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop9(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ9.textContent = ahri.title;
+                    champ9_items.name = "Ahri_items";
+                    champ9_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ9.textContent = annie.title;
+                    champ9_items.name = "Annie_items";
+                    champ9_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ9.textContent = ashe.title;
+                    champ9_items.name = "Ashe_items";
+                    champ9_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ9.textContent = aurelionsol.title;
+                    champ9_items.name = "AurelionSol_items";
+                    champ9_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ9.textContent = blitzcrank.title;
+                    champ9_items.name = "Blitzcrank_items";
+                    champ9_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ9.textContent = caitlyn.title;
+                    champ9_items.name = "Caitlyn_items";
+                    champ9_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ9.textContent = chogath.title;
+                    champ9_items.name = "ChoGath_items";
+                    champ9_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ9.textContent = darius.title;
+                    champ9_items.name = "Darius_items";
+                    champ9_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ9.textContent = ekko.title;
+                    champ9_items.name = "Ekko_items";
+                    champ9_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ9.textContent = ezreal.title;
+                    champ9_items.name = "Ezreal_items";
+                    champ9_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ9.textContent = fiora.title;
+                    champ9_items.name = "Fiora_items";
+                    champ9_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ9.textContent = fizz.title;
+                    champ9_items.name = "Fizz_items";
+                    champ9_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ9.textContent = gangplank.title;
+                    champ9_items.name = "Gangplank_items";
+                    champ9_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ9.textContent = graves.title;
+                    champ9_items.name = "Graves_items";
+                    champ9_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ9.textContent = irelia.title;
+                    champ9_items.name = "Irelia_items";
+                    champ9_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ9.textContent = jarvaniv.title;
+                    champ9_items.name = "JarvanIV_items";
+                    champ9_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ9.textContent = jayce.title;
+                    champ9_items.name = "Jayce_items";
+                    champ9_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ9.textContent = jhin.title;
+                    champ9_items.name = "Jhin_items";
+                    champ9_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ9.textContent = jinx.title;
+                    champ9_items.name = "Jinx_items";
+                    champ9_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ9.textContent = kaisa.title;
+                    champ9_items.name = "KaiSa_items";
+                    champ9_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ9.textContent = karma.title;
+                    champ9_items.name = "Karma_items";
+                    champ9_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ9.textContent = kassadin.title;
+                    champ9_items.name = "Kassadin_items";
+                    champ9_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ9.textContent = kayle.title;
+                    champ9_items.name = "Kayle_items";
+                    champ9_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ9.textContent = khazix.title;
+                    champ9_items.name = "KhaZix_items";
+                    champ9_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ9.textContent = leona.title;
+                    champ9_items.name = "Leona_items";
+                    champ9_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ9.textContent = lucian.title;
+                    champ9_items.name = "Lucian_items";
+                    champ9_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ9.textContent = lulu.title;
+                    champ9_items.name = "Lulu_items";
+                    champ9_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ9.textContent = lux.title;
+                    champ9_items.name = "Lux_items";
+                    champ9_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ9.textContent = malphite.title;
+                    champ9_items.name = "Malphite_items";
+                    champ9_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ9.textContent = masteryi.title;
+                    champ9_items.name = "MasterYi_items";
+                    champ9_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ9.textContent = missfortune.title;
+                    champ9_items.name = "MissFortune_items";
+                    champ9_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ9.textContent = mordekaiser.title;
+                    champ9_items.name = "Mordekaiser_items";
+                    champ9_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ9.textContent = neeko.title;
+                    champ9_items.name = "Neeko_items";
+                    champ9_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ9.textContent = poppy.title;
+                    champ9_items.name = "Poppy_items";
+                    champ9_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ9.textContent = rakan.title;
+                    champ9_items.name = "Rakan_items";
+                    champ9_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ9.textContent = rumble.title;
+                    champ9_items.name = "Rumble_items";
+                    champ9_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ9.textContent = shaco.title;
+                    champ9_items.name = "Shaco_items";
+                    champ9_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ9.textContent = shen.title;
+                    champ9_items.name = "Shen_items";
+                    champ9_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ9.textContent = sona.title;
+                    champ9_items.name = "Sona_items";
+                    champ9_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ9.textContent = soraka.title;
+                    champ9_items.name = "Soraka_items";
+                    champ9_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ9.textContent = syndra.title;
+                    champ9_items.name = "Syndra_items";
+                    champ9_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ9.textContent = thresh.title;
+                    champ9_items.name = "Thresh_items";
+                    champ9_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ9.textContent = twistedfate.title;
+                    champ9_items.name = "TwistedFate_items";
+                    champ9_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ9.textContent = velkoz.title;
+                    champ9_items.name = "VelKoz_items";
+                    champ9_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ9.textContent = vi.title;
+                    champ9_items.name = "Vi_items";
+                    champ9_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ9.textContent = wukong.title;
+                    champ9_items.name = "WuKong_items";
+                    champ9_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ9.textContent = xayah.title;
+                    champ9_items.name = "Xayah_items";
+                    champ9_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ9.textContent = xerath.title;
+                    champ9_items.name = "Xerath_items";
+                    champ9_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ9.textContent = xinzhao.title;
+                    champ9_items.name = "XinZhao_items";
+                    champ9_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ9.textContent = yasuo.title;
+                    champ9_items.name = "Yasuo_items";
+                    champ9_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ9.textContent = ziggs.title;
+                    champ9_items.name = "Ziggs_items";
+                    champ9_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ9.textContent = zoe.title;
+                    champ9_items.name = "Zoe_items";
+                    champ9_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop10(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ10.textContent = ahri.title;
+                    champ10_items.name = "Ahri_items";
+                    champ10_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ10.textContent = annie.title;
+                    champ10_items.name = "Annie_items";
+                    champ10_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ10.textContent = ashe.title;
+                    champ10_items.name = "Ashe_items";
+                    champ10_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ10.textContent = aurelionsol.title;
+                    champ10_items.name = "AurelionSol_items";
+                    champ10_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ10.textContent = blitzcrank.title;
+                    champ10_items.name = "Blitzcrank_items";
+                    champ10_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ10.textContent = caitlyn.title;
+                    champ10_items.name = "Caitlyn_items";
+                    champ10_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ10.textContent = chogath.title;
+                    champ10_items.name = "ChoGath_items";
+                    champ10_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ10.textContent = darius.title;
+                    champ10_items.name = "Darius_items";
+                    champ10_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ10.textContent = ekko.title;
+                    champ10_items.name = "Ekko_items";
+                    champ10_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ10.textContent = ezreal.title;
+                    champ10_items.name = "Ezreal_items";
+                    champ10_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ10.textContent = fiora.title;
+                    champ10_items.name = "Fiora_items";
+                    champ10_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ10.textContent = fizz.title;
+                    champ10_items.name = "Fizz_items";
+                    champ10_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ10.textContent = gangplank.title;
+                    champ10_items.name = "Gangplank_items";
+                    champ10_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ10.textContent = graves.title;
+                    champ10_items.name = "Graves_items";
+                    champ10_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ10.textContent = irelia.title;
+                    champ10_items.name = "Irelia_items";
+                    champ10_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ10.textContent = jarvaniv.title;
+                    champ10_items.name = "JarvanIV_items";
+                    champ10_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ10.textContent = jayce.title;
+                    champ10_items.name = "Jayce_items";
+                    champ10_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ10.textContent = jhin.title;
+                    champ10_items.name = "Jhin_items";
+                    champ10_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ10.textContent = jinx.title;
+                    champ10_items.name = "Jinx_items";
+                    champ10_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ10.textContent = kaisa.title;
+                    champ10_items.name = "KaiSa_items";
+                    champ10_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ10.textContent = karma.title;
+                    champ10_items.name = "Karma_items";
+                    champ10_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ10.textContent = kassadin.title;
+                    champ10_items.name = "Kassadin_items";
+                    champ10_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ10.textContent = kayle.title;
+                    champ10_items.name = "Kayle_items";
+                    champ10_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ10.textContent = khazix.title;
+                    champ10_items.name = "KhaZix_items";
+                    champ10_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ10.textContent = leona.title;
+                    champ10_items.name = "Leona_items";
+                    champ10_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ10.textContent = lucian.title;
+                    champ10_items.name = "Lucian_items";
+                    champ10_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ10.textContent = lulu.title;
+                    champ10_items.name = "Lulu_items";
+                    champ10_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ10.textContent = lux.title;
+                    champ10_items.name = "Lux_items";
+                    champ10_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ10.textContent = malphite.title;
+                    champ10_items.name = "Malphite_items";
+                    champ10_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ10.textContent = masteryi.title;
+                    champ10_items.name = "MasterYi_items";
+                    champ10_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ10.textContent = missfortune.title;
+                    champ10_items.name = "MissFortune_items";
+                    champ10_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ10.textContent = mordekaiser.title;
+                    champ10_items.name = "Mordekaiser_items";
+                    champ10_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ10.textContent = neeko.title;
+                    champ10_items.name = "Neeko_items";
+                    champ10_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ10.textContent = poppy.title;
+                    champ10_items.name = "Poppy_items";
+                    champ10_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ10.textContent = rakan.title;
+                    champ10_items.name = "Rakan_items";
+                    champ10_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ10.textContent = rumble.title;
+                    champ10_items.name = "Rumble_items";
+                    champ10_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ10.textContent = shaco.title;
+                    champ10_items.name = "Shaco_items";
+                    champ10_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ10.textContent = shen.title;
+                    champ10_items.name = "Shen_items";
+                    champ10_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ10.textContent = sona.title;
+                    champ10_items.name = "Sona_items";
+                    champ10_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ10.textContent = soraka.title;
+                    champ10_items.name = "Soraka_items";
+                    champ10_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ10.textContent = syndra.title;
+                    champ10_items.name = "Syndra_items";
+                    champ10_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ10.textContent = thresh.title;
+                    champ10_items.name = "Thresh_items";
+                    champ10_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ10.textContent = twistedfate.title;
+                    champ10_items.name = "TwistedFate_items";
+                    champ10_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ10.textContent = velkoz.title;
+                    champ10_items.name = "VelKoz_items";
+                    champ10_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ10.textContent = vi.title;
+                    champ10_items.name = "Vi_items";
+                    champ10_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ10.textContent = wukong.title;
+                    champ10_items.name = "WuKong_items";
+                    champ10_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ10.textContent = xayah.title;
+                    champ10_items.name = "Xayah_items";
+                    champ10_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ10.textContent = xerath.title;
+                    champ10_items.name = "Xerath_items";
+                    champ10_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ10.textContent = xinzhao.title;
+                    champ10_items.name = "XinZhao_items";
+                    champ10_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ10.textContent = yasuo.title;
+                    champ10_items.name = "Yasuo_items";
+                    champ10_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ10.textContent = ziggs.title;
+                    champ10_items.name = "Ziggs_items";
+                    champ10_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ10.textContent = zoe.title;
+                    champ10_items.name = "Zoe_items";
+                    champ10_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop11(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ11.textContent = ahri.title;
+                    champ11_items.name = "Ahri_items";
+                    champ11_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ11.textContent = annie.title;
+                    champ11_items.name = "Annie_items";
+                    champ11_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ11.textContent = ashe.title;
+                    champ11_items.name = "Ashe_items";
+                    champ11_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ11.textContent = aurelionsol.title;
+                    champ11_items.name = "AurelionSol_items";
+                    champ11_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ11.textContent = blitzcrank.title;
+                    champ11_items.name = "Blitzcrank_items";
+                    champ11_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ11.textContent = caitlyn.title;
+                    champ11_items.name = "Caitlyn_items";
+                    champ11_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ11.textContent = chogath.title;
+                    champ11_items.name = "ChoGath_items";
+                    champ11_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ11.textContent = darius.title;
+                    champ11_items.name = "Darius_items";
+                    champ11_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ11.textContent = ekko.title;
+                    champ11_items.name = "Ekko_items";
+                    champ11_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ11.textContent = ezreal.title;
+                    champ11_items.name = "Ezreal_items";
+                    champ11_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ11.textContent = fiora.title;
+                    champ11_items.name = "Fiora_items";
+                    champ11_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ11.textContent = fizz.title;
+                    champ11_items.name = "Fizz_items";
+                    champ11_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ11.textContent = gangplank.title;
+                    champ11_items.name = "Gangplank_items";
+                    champ11_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ11.textContent = graves.title;
+                    champ11_items.name = "Graves_items";
+                    champ11_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ11.textContent = irelia.title;
+                    champ11_items.name = "Irelia_items";
+                    champ11_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ11.textContent = jarvaniv.title;
+                    champ11_items.name = "JarvanIV_items";
+                    champ11_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ11.textContent = jayce.title;
+                    champ11_items.name = "Jayce_items";
+                    champ11_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ11.textContent = jhin.title;
+                    champ11_items.name = "Jhin_items";
+                    champ11_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ11.textContent = jinx.title;
+                    champ11_items.name = "Jinx_items";
+                    champ11_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ11.textContent = kaisa.title;
+                    champ11_items.name = "KaiSa_items";
+                    champ11_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ11.textContent = karma.title;
+                    champ11_items.name = "Karma_items";
+                    champ11_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ11.textContent = kassadin.title;
+                    champ11_items.name = "Kassadin_items";
+                    champ11_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ11.textContent = kayle.title;
+                    champ11_items.name = "Kayle_items";
+                    champ11_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ11.textContent = khazix.title;
+                    champ11_items.name = "KhaZix_items";
+                    champ11_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ11.textContent = leona.title;
+                    champ11_items.name = "Leona_items";
+                    champ11_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ11.textContent = lucian.title;
+                    champ11_items.name = "Lucian_items";
+                    champ11_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ11.textContent = lulu.title;
+                    champ11_items.name = "Lulu_items";
+                    champ11_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ11.textContent = lux.title;
+                    champ11_items.name = "Lux_items";
+                    champ11_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ11.textContent = malphite.title;
+                    champ11_items.name = "Malphite_items";
+                    champ11_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ11.textContent = masteryi.title;
+                    champ11_items.name = "MasterYi_items";
+                    champ11_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ11.textContent = missfortune.title;
+                    champ11_items.name = "MissFortune_items";
+                    champ11_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ11.textContent = mordekaiser.title;
+                    champ11_items.name = "Mordekaiser_items";
+                    champ11_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ11.textContent = neeko.title;
+                    champ11_items.name = "Neeko_items";
+                    champ11_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ11.textContent = poppy.title;
+                    champ11_items.name = "Poppy_items";
+                    champ11_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ11.textContent = rakan.title;
+                    champ11_items.name = "Rakan_items";
+                    champ11_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ11.textContent = rumble.title;
+                    champ11_items.name = "Rumble_items";
+                    champ11_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ11.textContent = shaco.title;
+                    champ11_items.name = "Shaco_items";
+                    champ11_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ11.textContent = shen.title;
+                    champ11_items.name = "Shen_items";
+                    champ11_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ11.textContent = sona.title;
+                    champ11_items.name = "Sona_items";
+                    champ11_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ11.textContent = soraka.title;
+                    champ11_items.name = "Soraka_items";
+                    champ11_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ11.textContent = syndra.title;
+                    champ11_items.name = "Syndra_items";
+                    champ11_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ11.textContent = thresh.title;
+                    champ11_items.name = "Thresh_items";
+                    champ11_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ11.textContent = twistedfate.title;
+                    champ11_items.name = "TwistedFate_items";
+                    champ11_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ11.textContent = velkoz.title;
+                    champ11_items.name = "VelKoz_items";
+                    champ11_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ11.textContent = vi.title;
+                    champ11_items.name = "Vi_items";
+                    champ11_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ11.textContent = wukong.title;
+                    champ11_items.name = "WuKong_items";
+                    champ11_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ11.textContent = xayah.title;
+                    champ11_items.name = "Xayah_items";
+                    champ11_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ11.textContent = xerath.title;
+                    champ11_items.name = "Xerath_items";
+                    champ11_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ11.textContent = xinzhao.title;
+                    champ11_items.name = "XinZhao_items";
+                    champ11_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ11.textContent = yasuo.title;
+                    champ11_items.name = "Yasuo_items";
+                    champ11_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ11.textContent = ziggs.title;
+                    champ11_items.name = "Ziggs_items";
+                    champ11_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ11.textContent = zoe.title;
+                    champ11_items.name = "Zoe_items";
+                    champ11_star.name = "Zoe_star";
+                }
+            }
+            function dragDrop12(ev) { 
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                
+                if (data == "ahri") {
+                    champ12.textContent = ahri.title;
+                    champ12_items.name = "Ahri_items";
+                    champ12_star.name = "Ahri_star";
+                }
+                else if (data == "annie") {
+                    champ12.textContent = annie.title;
+                    champ12_items.name = "Annie_items";
+                    champ12_star.name = "Annie_star";
+                }
+                else if (data == "ashe") {
+                    champ12.textContent = ashe.title;
+                    champ12_items.name = "Ashe_items";
+                    champ12_star.name = "Ashe_star";
+                }
+                else if (data == "aurelionsol") {
+                    champ12.textContent = aurelionsol.title;
+                    champ12_items.name = "AurelionSol_items";
+                    champ12_star.name = "AurelionSol_star";
+                }
+                else if (data == "blitzcrank") {
+                    champ12.textContent = blitzcrank.title;
+                    champ12_items.name = "Blitzcrank_items";
+                    champ12_star.name = "Blitzcrank_star";
+                }
+                else if (data == "caitlyn") {
+                    champ12.textContent = caitlyn.title;
+                    champ12_items.name = "Caitlyn_items";
+                    champ12_star.name = "Caitlyn_star";
+                }
+                else if (data == "chogath") {
+                    champ12.textContent = chogath.title;
+                    champ12_items.name = "ChoGath_items";
+                    champ12_star.name = "ChoGath_star";
+                }
+                else if (data == "darius") {
+                    champ12.textContent = darius.title;
+                    champ12_items.name = "Darius_items";
+                    champ12_star.name = "Darius_star";
+                }
+                else if (data == "ekko") {
+                    champ12.textContent = ekko.title;
+                    champ12_items.name = "Ekko_items";
+                    champ12_star.name = "Ekko_star";
+                }
+                else if (data == "ezreal") {
+                    champ12.textContent = ezreal.title;
+                    champ12_items.name = "Ezreal_items";
+                    champ12_star.name = "Ezreal_star";
+                }
+                else if (data == "fiora") {
+                    champ12.textContent = fiora.title;
+                    champ12_items.name = "Fiora_items";
+                    champ12_star.name = "Fiora_star";
+                }
+                else if (data == "fizz") {
+                    champ12.textContent = fizz.title;
+                    champ12_items.name = "Fizz_items";
+                    champ12_star.name = "Fizz_star";
+                }
+                else if (data == "gangplank") {
+                    champ12.textContent = gangplank.title;
+                    champ12_items.name = "Gangplank_items";
+                    champ12_star.name = "Gangplank_star";
+                }
+                else if (data == "graves") {
+                    champ12.textContent = graves.title;
+                    champ12_items.name = "Graves_items";
+                    champ12_star.name = "Graves_star";
+                }
+                else if (data == "irelia") {
+                    champ12.textContent = irelia.title;
+                    champ12_items.name = "Irelia_items";
+                    champ12_star.name = "Irelia_star";
+                }
+                else if (data == "jarvaniv") {
+                    champ12.textContent = jarvaniv.title;
+                    champ12_items.name = "JarvanIV_items";
+                    champ12_star.name = "JarvanIV_star";
+                }
+                else if (data == "jayce") {
+                    champ12.textContent = jayce.title;
+                    champ12_items.name = "Jayce_items";
+                    champ12_star.name = "Jayce_star";
+                }
+                else if (data == "jhin") {
+                    champ12.textContent = jhin.title;
+                    champ12_items.name = "Jhin_items";
+                    champ12_star.name = "Jhin_star";
+                }
+                else if (data == "jinx") {
+                    champ12.textContent = jinx.title;
+                    champ12_items.name = "Jinx_items";
+                    champ12_star.name = "Jinx_star";
+                }
+                else if (data == "kaisa") {
+                    champ12.textContent = kaisa.title;
+                    champ12_items.name = "KaiSa_items";
+                    champ12_star.name = "KaiSa_star";
+                }
+                else if (data == "karma") {
+                    champ12.textContent = karma.title;
+                    champ12_items.name = "Karma_items";
+                    champ12_star.name = "Karma_star";
+                }
+                else if (data == "kassadin") {
+                    champ12.textContent = kassadin.title;
+                    champ12_items.name = "Kassadin_items";
+                    champ12_star.name = "Kassadin_star";
+                }
+                else if (data == "kayle") {
+                    champ12.textContent = kayle.title;
+                    champ12_items.name = "Kayle_items";
+                    champ12_star.name = "Kayle_star";
+                }
+                else if (data == "khazix") {
+                    champ12.textContent = khazix.title;
+                    champ12_items.name = "KhaZix_items";
+                    champ12_star.name = "KhaZix_star";
+                }
+                else if (data == "leona") {
+                    champ12.textContent = leona.title;
+                    champ12_items.name = "Leona_items";
+                    champ12_star.name = "Leona_star";
+                }
+                else if (data == "lucian") {
+                    champ12.textContent = lucian.title;
+                    champ12_items.name = "Lucian_items";
+                    champ12_star.name = "Lucian_star";
+                }
+                else if (data == "lulu") {
+                    champ12.textContent = lulu.title;
+                    champ12_items.name = "Lulu_items";
+                    champ12_star.name = "Lulu_star";
+                }
+                else if (data == "lux") {
+                    champ12.textContent = lux.title;
+                    champ12_items.name = "Lux_items";
+                    champ12_star.name = "Lux_star";
+                }
+                else if (data == "malphite") {
+                    champ12.textContent = malphite.title;
+                    champ12_items.name = "Malphite_items";
+                    champ12_star.name = "Malphite_star";
+                }
+                else if (data == "masteryi") {
+                    champ12.textContent = masteryi.title;
+                    champ12_items.name = "MasterYi_items";
+                    champ12_star.name = "MasterYi_star";
+                }
+                else if (data == "missfortune") {
+                    champ12.textContent = missfortune.title;
+                    champ12_items.name = "MissFortune_items";
+                    champ12_star.name = "MissFortune_star";
+                }
+                else if (data == "mordekaiser") {
+                    champ12.textContent = mordekaiser.title;
+                    champ12_items.name = "Mordekaiser_items";
+                    champ12_star.name = "Mordekaiser_star";
+                }
+                else if (data == "neeko") {
+                    champ12.textContent = neeko.title;
+                    champ12_items.name = "Neeko_items";
+                    champ12_star.name = "Neeko_star";
+                }
+                else if (data == "poppy") {
+                    champ12.textContent = poppy.title;
+                    champ12_items.name = "Poppy_items";
+                    champ12_star.name = "Poppy_star";
+                }
+                else if (data == "rakan") {
+                    champ12.textContent = rakan.title;
+                    champ12_items.name = "Rakan_items";
+                    champ12_star.name = "Rakan_star";
+                }
+                else if (data == "rumble") {
+                    champ12.textContent = rumble.title;
+                    champ12_items.name = "Rumble_items";
+                    champ12_star.name = "Rumble_star";
+                }
+                else if (data == "shaco") {
+                    champ12.textContent = shaco.title;
+                    champ12_items.name = "Shaco_items";
+                    champ12_star.name = "Shaco_star";
+                }
+                else if (data == "shen") {
+                    champ12.textContent = shen.title;
+                    champ12_items.name = "Shen_items";
+                    champ12_star.name = "Shen_star";
+                }
+                else if (data == "sona") {
+                    champ12.textContent = sona.title;
+                    champ12_items.name = "Sona_items";
+                    champ12_star.name = "Sona_star";
+                }
+                else if (data == "soraka") {
+                    champ12.textContent = soraka.title;
+                    champ12_items.name = "Soraka_items";
+                    champ12_star.name = "Soraka_star";
+                }
+                else if (data == "syndra") {
+                    champ12.textContent = syndra.title;
+                    champ12_items.name = "Syndra_items";
+                    champ12_star.name = "Syndra_star";
+                }
+                else if (data == "thresh") {
+                    champ12.textContent = thresh.title;
+                    champ12_items.name = "Thresh_items";
+                    champ12_star.name = "Thresh_star";
+                }
+                else if (data == "twistedfate") {
+                    champ12.textContent = twistedfate.title;
+                    champ12_items.name = "TwistedFate_items";
+                    champ12_star.name = "TwistedFate_star";
+                }
+                else if (data == "velkoz") {
+                    champ12.textContent = velkoz.title;
+                    champ12_items.name = "VelKoz_items";
+                    champ12_star.name = "VelKoz_star";
+                }
+                else if (data == "vi") {
+                    champ12.textContent = vi.title;
+                    champ12_items.name = "Vi_items";
+                    champ12_star.name = "Vi_star";
+                }
+                else if (data == "wukong") {
+                    champ12.textContent = wukong.title;
+                    champ12_items.name = "WuKong_items";
+                    champ12_star.name = "WuKong_star";
+                }
+                else if (data == "xayah") {
+                    champ12.textContent = xayah.title;
+                    champ12_items.name = "Xayah_items";
+                    champ12_star.name = "Xayah_star";
+                }
+                else if (data == "xerath") {
+                    champ12.textContent = xerath.title;
+                    champ12_items.name = "Xerath_items";
+                    champ12_star.name = "Xerath_star";
+                }
+                else if (data == "xinzhao") {
+                    champ12.textContent = xinzhao.title;
+                    champ12_items.name = "XinZhao_items";
+                    champ12_star.name = "XinZhao_star";
+                }
+                else if (data == "yasuo") {
+                    champ12.textContent = yasuo.title;
+                    champ12_items.name = "Yasuo_items";
+                    champ12_star.name = "Yasuo_star";
+                }
+                else if (data == "ziggs") {
+                    champ12.textContent = ziggs.title;
+                    champ12_items.name = "Ziggs_items";
+                    champ12_star.name = "Ziggs_star";
+                }
+                else if (data == "zoe") {
+                    champ12.textContent = zoe.title;
+                    champ12_items.name = "Zoe_items";
+                    champ12_star.name = "Zoe_star";
+                }
+            }
+        </script>
+  </body>
+</html>
+
